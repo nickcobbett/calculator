@@ -1,0 +1,11 @@
+.calculator {
+  /* display: flex; */
+}
+.keyboard {
+  display: flex;
+
+}
+
+.placeholder {
+    display: none;
+}

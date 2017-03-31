@@ -16,6 +16,8 @@
   border-top-width: 1px;
   border-bottom-width: 1px;
   border-right-width: 1px;
+  display: flex;
+  justify-content: flex-end;
 }
 .keyboard {
   /*width: 100;*/

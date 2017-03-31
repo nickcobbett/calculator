@@ -1,9 +1,6 @@
 var Calculator = function() {
-  this.value = 0;
-  this.values = [0, 0];
+  this.value = 0; //Calc is initialize with value of 0
   this.operation = null;
-  // this.operations = [];
-
 
   this.add = this.add.bind(this);
   // this.subtract = this.subtract.bind(this);
@@ -14,7 +11,7 @@ var Calculator = function() {
   // this.update = this.update.bind(this);
 };
 
-//initial val is 0
+
 
 //on add click, you're adding to initial val
 
@@ -25,7 +22,7 @@ Calculator.prototype.add = function(val) {
 };
 
 Calculator.prototype.equals = function(val) {
-  return this.operation.call(this, val);
+  this.operation.call(this, val);
   // return this.value;
 };
 

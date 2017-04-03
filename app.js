@@ -1,35 +1,23 @@
-var Calculator = function() {
-  this.value = 0; //Calc is initialized with value of 0
-  this.operation = this.add;
+var add = (x, y) => {
+  return x + y;
+};
+var subtract = (x, y) => {
+  return x - y;
+};
+var multiply = (x, y) => {
+  return x * y;
+};
+var divide = (x, y) => {
+  return x / y;
 };
 
-Calculator.prototype.add = function(val) {
-  this.value += val;
-};
-
-Calculator.prototype.subtract = function(val) {
-  this.value -= val;
-};
-
-Calculator.prototype.multiply = function(val) {
-  this.value *= val;
-};
-
-Calculator.prototype.divide = function(val) {
-  this.value /= val;
-};
-
-Calculator.prototype.equals = function(val) {
-  return this.value;
-};
-
-var calc = new Calculator();
+var x = 0;
+var y = 0;
+var operation = add;
+var display = x;
 
 var newCalculator = function() {
-  calc = new Calculator();
-  console.log('calc', calc);
-  $('.display').text(calc.value);
-  return calc;
+  $('.display').text(display);
 };
 
 var inputValue = '';
@@ -41,38 +29,48 @@ $('.key').click(function() {
     return;
   }
 
+
   if (val === '+' || val === '-' || val === 'x' || val === '/' || val === '=') {
-    inputValue = parseInt(inputValue);
-    calc.operation(inputValue); // call previous calc operation
-    console.log('calc.value', calc.value);
-    // set the operation to be called after next value entered
-    if (val === '+') {
-      calc.operation = calc.add;
+    if (val === '=') {
+      y = parseInt(inputValue);
+      x = operation(x, y); // call previous calc operation
+      display = x;
+      // x = 0;
+      // y = 0;
+      // operation = add;
+      // inputValue = inputValue.toString();
+
+    } else {
+      y = parseInt(inputValue);
+      x = operation(x, y); // call previous calc operation
+      console.log('x', x);
+      console.log('y', y);
+      inputValue = ''; // reset input value once math operator is hit
+    }
+    if (val === '+') { // set the operation to be called after next value entered
+      operation = add;
     }
     if (val === '-') {
-      calc.operation = calc.subtract;
+      operation = subtract;
     }
     if (val === 'x') {
-      calc.operation = calc.multiply;
+      operation = multiply;
     }
     if (val === '/') {
-      calc.operation = calc.divide;
-    }
-    // this will be different
-    if (val !== '=') {
-      inputValue = ''; // reset input value once math operator is hit
-    } else {
-      inputValue = inputValue.toString();
+      operation = divide;
     }
 
-    $('.display').text(calc.value); // display
-    console.log('input val', inputValue);
   } else {
     inputValue += val;
-    console.log('input val', inputValue);
-    $('.display').text(inputValue);
+    display = inputValue;
   }
 
+  console.log('input val', inputValue);
+  console.log('operation', operation.name);
+  console.log('x', x);
+  console.log('y', y);
+
+  $('.display').text(display);
 });
 
 $(document).on('ready', newCalculator());

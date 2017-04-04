@@ -13,13 +13,9 @@ var divide = (x, y) => {
 
 var x = 0;
 var y = 0;
+var result = 0;
 var operation = add;
 var display = x;
-
-var newCalculator = function() {
-  $('.display').text(display);
-};
-
 var inputValue = '';
 
 $('.key').click(function() {
@@ -31,20 +27,19 @@ $('.key').click(function() {
 
 
   if (val === '+' || val === '-' || val === 'x' || val === '/' || val === '=') {
+    y = parseInt(inputValue);
+    result = operation(x, y); // call previous calc operation
+    display = result;
     if (val === '=') {
-      y = parseInt(inputValue);
-      x = operation(x, y); // call previous calc operation
-      display = x;
-      // x = 0;
-      // y = 0;
-      // operation = add;
+      inputValue = result;
+      x = 0;
+      y = 0;
+      operation = add;
       // inputValue = inputValue.toString();
 
     } else {
-      y = parseInt(inputValue);
-      x = operation(x, y); // call previous calc operation
-      console.log('x', x);
-      console.log('y', y);
+      x = result;
+      y = 0;
       inputValue = ''; // reset input value once math operator is hit
     }
     if (val === '+') { // set the operation to be called after next value entered
@@ -72,5 +67,13 @@ $('.key').click(function() {
 
   $('.display').text(display);
 });
+
+var newCalculator = function() {
+  x = 0;
+  y = 0;
+  operation = add;
+  display = x;
+  $('.display').text(display);
+};
 
 $(document).on('ready', newCalculator());
